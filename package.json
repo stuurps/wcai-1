@@ -1,0 +1,11 @@
+{
+  "name": "wildcamping",
+  "version": "1.0.0",
+  "description": "Find wild places",
+  "main": "index.js",
+  "author": "Lewin Appleton-Fox",
+  "license": "MIT",
+  "dependencies": {
+    "leaflet": "^1.5.1"
+  }
+}
