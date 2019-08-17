@@ -1,6 +1,21 @@
 console.log('index.js connected');
 
+// The `components` object will be populated with the various bits of
+// the map we want to interact with. In future we can change the
+// populateComponents function to alter what gets put in here, but the
+// rest of the functions can just refer to components.[whatever].
+// This will make it easier to maintain a consistent API.
 const components = {}
+
+const populateComponents = () => {
+    components.map = L.map('map');
+}
+
+// Once the page has loaded we can start setting things up
+window.onload = () => {
+    populateComponents();
+    initMap();
+}
 
 
 const initMap = () => {
@@ -44,7 +59,3 @@ const addMarker = (lat, lng, markerContent = {}) => {
     // TODO: Save marker info to DB
 }
 
-window.onload = () => {
-    components.map = L.map('map');
-    initMap();
-}
