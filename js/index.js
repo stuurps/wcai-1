@@ -43,19 +43,8 @@ const mapClickHandler = (e) => {
     const clickLat = clickLatLong.lat;
     const clickLng = clickLatLong.lng;
     console.log(`Clicked at: ${clickLatLong}`);
-    
-    getW3W(clickLat, clickLng);
-
-    addMarker(clickLat, clickLng)
-}
-
-const getW3W = async (clickLat, clickLng) => {
-    const responseObject = await what3words.api.convertTo3wa({lat:clickLat, lng:clickLng});
-    console.log(responseObject);
-}
-
-const addMarker = (lat, lng, markerContent = {}) => {
-    let marker = L.marker([lat, lng], markerContent).addTo(components.map);
-    // TODO: Save marker info to DB
+    const marker = new wcaiMarker(clickLat, clickLng);
+    // marker.getW3W();
+    marker.addToMap(components.map);
 }
 
