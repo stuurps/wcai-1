@@ -43,8 +43,6 @@ const mapClickHandler = (e) => {
     const clickLat = clickLatLong.lat;
     const clickLng = clickLatLong.lng;
     console.log(`Clicked at: ${clickLatLong}`);
-    const marker = new wcaiMarker(clickLat, clickLng);
-    // marker.getW3W();
-    marker.addToMap(components.map);
+    const marker = new wcaiMarker(clickLat, clickLng, components.map);
 }
 

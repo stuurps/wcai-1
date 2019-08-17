@@ -1,20 +1,26 @@
 console.log("wcaiMarker.js connected");
 
 class wcaiMarker {
-    constructor(lat, lng) {
+    constructor(lat, lng, map) {
         this.lat = lat;
         this.lng = lng;
-        this.w3wData = this.getW3W();
+        this.w3wData = {};
+        this.init(map);
     }
 
-    getW3W = async () => {
+    init = async (map) => {
         console.log('Getting w3w data');
         const responseObject = await what3words.api.convertTo3wa({lat:this.lat, lng:this.lng});
         this.w3wData = responseObject;
+        console.log("this.w3wData:")
         console.log(this.w3wData);
+        this.addToMap(map);
     }
 
     addToMap = (map) => {
         let marker = L.marker([this.lat, this.lng], this.w3wData).addTo(map);
+        const html = `<b>${this.w3wData.words}</b>`
+        marker.bindPopup(html).openPopup();
     }
+
 }
