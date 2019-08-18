@@ -25,7 +25,11 @@ class wcaiMarker {
     addToMap = (map) => {
         let marker = L.marker([this.lat, this.lng], this.siteData).addTo(map);
         const markerHTML = this.buildPopupContent();
-        marker.bindPopup(markerHTML).openPopup();
+        marker.bindPopup(markerHTML);
+        marker.getPopup().on('remove', () => {
+            map.removeLayer(marker);
+        })
+        marker.openPopup();
     }
 
     buildPopupContent = () => {
