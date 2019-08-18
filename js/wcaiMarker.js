@@ -29,9 +29,17 @@ class wcaiMarker {
     }
 
     buildPopup = () => {
+        const form = '<form id="popup-form">\
+        <label for="username">Your name</label>\
+        <input id="username" class="popup-input" type="text" />\
+        <label for="email">Your email</label>\
+        <input type="email" placeholder="name@example.com">\
+        <label for="siteDescription">Tell us about the site!</label>\
+        <textarea id="siteDescription" form="popup-form"></textarea>\
+        <button id="button-submit" type="button">Save</button>\
+        </form>';
         const header = `<b>${this.siteData.words}</b>`;
         const body = `<p>${this.siteData.nearestPlace}</p>`;
-        const form = this.readHTMLFileTemplate('newSiteForm.html');
         const html = `${header}<br>${body}<br>${form}`;
         return html;
     }
