@@ -47,7 +47,9 @@ class wcaiMarker {
         </form>';
         const newSiteText = "You're the first to add a site here - use the \
         form below to tell us a bit about it!";
-        const header = `<b>${this.siteData.words}</b><br><p>${newSiteText}</p>`;
+        const header = `<b><a href="https://what3words.com/${this.siteData.words}" target="_blank">${this.siteData.words}</a>
+            </b><br>\
+            <p>${newSiteText}</p>`;
         const html = `${header}${form}`;
         return html;
     }
