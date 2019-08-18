@@ -1,6 +1,7 @@
 console.log("wcaiMarker.js connected");
 
 class wcaiMarker {
+
     constructor(lat = null, lng = null, map, siteData = null) {
         this.lat = lat;
         this.lng = lng;
@@ -9,7 +10,7 @@ class wcaiMarker {
         if (this.isNewSite) {
             this.initFromScratch(map);  // Get w3w data
         } else {
-            this.addToMap(map);            // siteData contains all we need
+            this.addToMap(map);         // siteData contains all we need
         }
     }
 
@@ -30,13 +31,41 @@ class wcaiMarker {
     buildPopup = () => {
         const header = `<b>${this.siteData.words}</b>`;
         const body = `<p>${this.siteData.nearestPlace}</p>`;
-        const html = `${header}<br>${body}`;
+        const form = this.readHTMLFileTemplate('newSiteForm.html');
+        const html = `${header}<br>${body}<br>${form}`;
         return html;
     }
 
-    saveData = () => {
-        // Take the input data and save to the db
+    saveToDB = (formData) => {
+        // TODO: There are two parts to the data - the first is the w3w info
+        // (location, words and so on) which is generated automatically.
+        // The second is an user input (email, photos, #hastags, description, rating
+        // or whatever we decide to implement).
+        // 
+        // Open question: should we create a Site object that is separate from a Marker?
+        // I think we should, on the basis that you could have multiple Markers for one
+        // Site, particularly because a Site is unlikely to really just be a single w3w
+        // square. Probably not one to worry about now though.
         pass
+    }
+
+    readHTMLFileTemplate = (file) => {
+        // TODO: To avoid embedding HTML strings in JS code, write the HTML elsewhere and
+        // read it in. We can use format strings to insert the right values.
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("GET", file, false);
+        rawFile.onreadystatechange = function ()
+        {
+            if(rawFile.readyState === 4)
+            {
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    var allText = rawFile.responseText;
+                    return allText;
+                }
+            }
+        }
+        rawFile.send(null);
     }
 
 }
