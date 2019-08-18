@@ -1,10 +1,23 @@
 {
   "name": "wildcamping",
   "version": "1.0.0",
-  "description": "Find wild places",
-  "main": "index.js",
+  "description": "Find beautiful places",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "devstart": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lewinfox/wcai.git"
+  },
   "author": "Lewin Appleton-Fox",
-  "license": "MIT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lewinfox/wcai/issues"
+  },
+  "homepage": "https://github.com/lewinfox/wcai#readme",
   "dependencies": {
     "leaflet": "^1.5.1"
   }
