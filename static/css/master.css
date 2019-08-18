@@ -31,6 +31,16 @@ html, body{
     flex: 0 1 40px;
 }
 
+.right-align {
+    margin-right: 2%;
+    float: right;
+}
+
+.left-align {
+    margin-left: 2%;
+    float: left;
+}
+
 #latLonSearchForm {
     display: flex;
     flex-flow: row wrap;
