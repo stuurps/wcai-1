@@ -6,6 +6,7 @@ class wcaiMarker {
         this.lat = lat;
         this.lng = lng;
         this.siteData = siteData;       // Will be null for new sites
+        this.userData = null;           // This is where user name, email and so on go
         this.isNewSite = this.siteData == null;
         if (this.isNewSite) {
             this.initFromScratch(map);  // Get w3w data
@@ -30,17 +31,21 @@ class wcaiMarker {
             map.removeLayer(marker);
         })
         marker.openPopup();
+        // Now that the popup is open we can use Leaflet's DomUtil and DomEvent
+        // to attach an event listener to the form
+        this.popupSubmitButton = L.DomUtil.get('buttonSubmit');
+        L.DomEvent.addListener(this.popupSubmitButton, 'click', this.capturePopupFormData);
     }
 
     buildPopupContent = () => {
         const form = '\
         <form id="popupForm">\
-            <input id="username" class="popup-input" type="text" \
+            <input name="username" id="username" class="popup-input" type="text" \
                 aria-label="username" placeholder="Your Name"/>\
-            <input type="email" aria-label="email" placeholder="name@example.com"/>\
-            <textarea id="siteDescription" form="popup-form" \
+            <input name="email" type="email" aria-label="email" placeholder="name@example.com"/>\
+            <textarea name="siteDescription" id="siteDescription" form="popupForm" \
                 aria-label="description" placeholder="Describe the site in a few words..."></textarea>\
-            <input type="checkbox" id="mailOptInCheckBox"/>\
+            <input name="canEmail" type="checkbox" id="mailOptInCheckBox" value="true"/>\
             <label for="mailOptInCheckbox">I would like to receive emails from Wildcamping\
             </label>\
             <p>We hate spam too - \
@@ -58,6 +63,20 @@ class wcaiMarker {
         return html;
     }
 
+    capturePopupFormData = () => {
+        const userData = { canEmail: false };
+        const popupForm = L.DomUtil.get('popupForm');
+        const formData = new FormData(popupForm);
+        // formData objects need to be treated slightly differently to regular
+        // objects. To save the data we need to iterate through and save the
+        // properties one by one.
+        for (let [key, value] of formData.entries()) {
+            userData[key] = value;
+        }
+        this.userData = userData;
+        console.log(this.userData);
+    }
+
     saveToDB = (formData) => {
         // TODO: There are two parts to the data - the first is the w3w info
         // (location, words and so on) which is generated automatically.
@@ -71,21 +90,4 @@ class wcaiMarker {
         // now though.
         pass
     }
-
-    readHTMLFileTemplate = (file) => {
-        // TODO: To avoid embedding HTML strings in JS code, write the HTML elsewhere and
-        // read it in. We can use format strings to insert the right values.
-        var rawFile = new XMLHttpRequest();
-        rawFile.open("GET", file, false);
-        rawFile.onreadystatechange = function () {
-            if (rawFile.readyState === 4) {
-                if (rawFile.status === 200 || rawFile.status == 0) {
-                    var allText = rawFile.responseText;
-                    return allText;
-                }
-            }
-        }
-        rawFile.send(null);
-    }
-
 }
