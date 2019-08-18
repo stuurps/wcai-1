@@ -18,10 +18,15 @@ class wcaiMarker {
 
     addToMap = (map) => {
         let marker = L.marker([this.lat, this.lng], this.w3wData).addTo(map);
+        const markerHTML = this.buildPopup();
+        marker.bindPopup(markerHTML).openPopup();
+    }
+
+    buildPopup = () => {
         const header = `<b>${this.w3wData.words}</b>`;
         const body = `<p>${this.w3wData.nearestPlace}</p>`;
         const html = `${header}<br>${body}`;
-        marker.bindPopup(html).openPopup();
+        return html;
     }
 
 }
