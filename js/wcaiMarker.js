@@ -29,18 +29,24 @@ class wcaiMarker {
     }
 
     buildPopup = () => {
-        const form = '<form id="popup-form">\
+        const form = '<form id="popupForm">\
         <label for="username">Your name</label>\
-        <input id="username" class="popup-input" type="text" />\
+        <input id="username" class="popup-input" type="text" placeholder="Happy Camper"/>\
         <label for="email">Your email</label>\
-        <input type="email" placeholder="name@example.com">\
+        <input type="email" placeholder="name@example.com"/>\
         <label for="siteDescription">Tell us about the site!</label>\
         <textarea id="siteDescription" form="popup-form"></textarea>\
-        <button id="button-submit" type="button">Save</button>\
+        <input type="checkbox" id="mailOptInCheckBox"/>\
+        <label for="mailOptInCheckbox">I would like to receive emails from Wildcamping\
+        </label>\
+        <p>We hate spam too - \
+        <a href="#" rel="noopener referrer" target="_blank">click here</a> \
+        to see what we will send you.</p>\
+        <button id="buttonSubmit" type="button">Save</button>\
         </form>';
         const header = `<b>${this.siteData.words}</b>`;
-        const body = `<p>${this.siteData.nearestPlace}</p>`;
-        const html = `${header}<br>${body}<br>${form}`;
+        const nearestPlace = `<p>${this.siteData.nearestPlace}</p>`;
+        const html = `${header}<br>${nearestPlace}<br>${form}`;
         return html;
     }
 
