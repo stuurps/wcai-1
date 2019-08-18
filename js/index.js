@@ -51,15 +51,18 @@ const initMap = () => {
 const mapClickHandler = (e) => {
     // Leaflet's click event contains latitude and longitude clicked
     const clickLatLong = e.latlng;
-    const clickLat = clickLatLong.lat;
-    const clickLng = clickLatLong.lng;
+    const lat = clickLatLong.lat;
+    const lng = clickLatLong.lng;
     console.log(`Clicked at: ${clickLatLong}`);
-    const marker = new wcaiMarker(clickLat, clickLng, components.map);
+    const marker = new wcaiMarker(lat, lng, components.map);
 }
 
 const repointMapView = (e) => {
     // e.preventDefault();
     const lat = components.searchBar.lat.value;
     const lng = components.searchBar.lng.value;
+    components.searchBar.lat.value = "";
+    components.searchBar.lng.value = "";
     components.map.setView([lat, lng], 15);
+    const marker = new wcaiMarker(lat, lng, components.map);
 }
