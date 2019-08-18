@@ -26,14 +26,15 @@ const initMap = () => {
     map.on('click', mapClickHandler);
 
     // Create the tile layer with correct attribution (OpenStreetMap)
-	let osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	let osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
-	let osm = new L.TileLayer(osmUrl, {minZoom: 2, maxZoom: 18, attribution: osmAttrib});		
+    let osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    let osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
+    let osm = new L.TileLayer(osmUrl, { minZoom: 2, maxZoom: 18, attribution: osmAttrib });
 
-	// Start in Brizzle
-	map.setView(new L.LatLng(51.452593, -2.597655), 9);
+    // Start in user's current location - if they deny geolocation it will
+    // default to a view of the whole world
+    map.locate({ setView: true, maxZoom: 16 });
     map.addLayer(osm);
-    
+
     // TODO: Retrieve existing markers from DB and add to map
 }
 
