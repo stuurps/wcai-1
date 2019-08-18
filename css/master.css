@@ -17,7 +17,9 @@ html, body{
 
 .box .row-header {
     flex: 0 1 auto;
-    margin: auto;
+    padding-left: 2%;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .box .row-content {
@@ -27,4 +29,24 @@ html, body{
 
 .box .row-footer {
     flex: 0 1 40px;
+}
+
+#latLonSearchForm {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    margin-right: 2%;
+    margin-left: auto;
+}
+
+/* Hide up and down arrows on numeric input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
 }

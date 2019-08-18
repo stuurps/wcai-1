@@ -9,12 +9,22 @@ const components = {}
 
 const populateComponents = () => {
     components.map = L.map('map');
+    components.searchBar = {
+        lat: document.getElementById('searchLatitude'),
+        lng: document.getElementById('searchLongitude'),
+        searchButton: document.getElementById('searchButton')
+    }
+}
+
+const addEventHandlers = () => {
+    components.searchBar.searchButton.addEventListener('click', repointMapView);
 }
 
 // Once the page has loaded we can start setting things up
 window.onload = () => {
     populateComponents();
     initMap();
+    addEventHandlers();
 }
 
 
@@ -47,3 +57,9 @@ const mapClickHandler = (e) => {
     const marker = new wcaiMarker(clickLat, clickLng, components.map);
 }
 
+const repointMapView = (e) => {
+    // e.preventDefault();
+    const lat = components.searchBar.lat.value;
+    const lng = components.searchBar.lng.value;
+    components.map.setView([lat, lng], 15);
+}
